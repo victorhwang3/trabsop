@@ -1,9 +1,12 @@
 #!/bin/bash
 
+# Forçar idioma para português do Brasil
+export LC_ALL=pt_BR.UTF-8
+
 # Função para exibir cabeçalho
 mostrar_cabecalho() {
     clear
-    data_atual=$(LC_TIME=pt_BR.UTF-8 date +"%d de %B de %Y")
+    data_atual=$(date +"%d de %B de %Y")
     hora_atual=$(date +"%H horas e %M minutos")
 
     # Definir semestre dinamicamente
@@ -17,7 +20,7 @@ mostrar_cabecalho() {
 
     echo "################################################################"
     echo "# IBMEC : Instituto Brasileiro de Mercado de Capitais          #"
-    echo "# Sistema Operacionais (IBM0791)                               #"
+    echo "# Sistemas Operacionais (IBM0791)                              #"
     echo "# Professor: Luiz Fernando T. de Farias                        #"
     printf "# %-61s #\n" "$semestre"
     echo "# ============================================================ #"
@@ -44,8 +47,8 @@ while true; do
             read -p "Pressione Enter para continuar..."
             ;;
         2)
-            echo -e "\nProcessos ativos (top 15):"
-            top -n 1 | head -15
+            echo -e "\nProcessos ativos (top 15 por uso de memória):"
+            ps aux --sort=-%mem | head -15
             read -p "Pressione Enter para continuar..."
             ;;
         3)
