@@ -1,0 +1,73 @@
+#!/bin/bash
+
+# Forçar idioma para português do Brasil
+export LC_ALL=pt_BR.UTF-8
+
+# Função para exibir cabeçalho
+mostrar_cabecalho() {
+    clear
+    data_atual=$(date +"%d de %B de %Y")
+    hora_atual=$(date +"%H horas e %M minutos")
+
+    # Definir semestre dinamicamente
+    mes=$(date +%m)
+    ano=$(date +%Y)
+    if [ "$mes" -le 6 ]; then
+        semestre="1º Semestre de $ano"
+    else
+        semestre="2º Semestre de $ano"
+    fi
+
+    echo "#############################################################################################"
+    echo "# IBMEC : Instituto Brasileiro de Mercado de Capitais                                       #"
+    echo "# Sistemas Operacionais (IBM0791)                                                           #"
+    echo "# Professor: Luiz Fernando T. de Farias                                                     #"
+    printf "# %-90s #\n" "$semestre"
+    echo "# ========================================================================================= #"
+    echo "# Equipe:                                                                                   #"
+    echo "#   Aluno: Victor Alvarenga Hwang                                   Matricula: 202208766005 #"
+    echo "#   Aluno: Fernando Mendonça Conceição Rodrigues Silva              Matricula: 202208935079 #"
+    echo "#############################################################################################"
+    printf "Rio de Janeiro %-55s %s.\n" "$data_atual" "$hora_atual"
+    echo "Menu de Escolhas:"
+    echo "  1) Mostrar diretório atual"
+    echo "  2) Ver processos ativos"
+    echo "  3) Mostrar uso de disco"
+    echo "  4) Listar usuários do sistema"
+    echo "  5) Finalizar o Script"
+}
+
+# Loop principal
+while true; do
+    mostrar_cabecalho
+    read -p "Escolha uma opção: " opcao
+    case $opcao in
+        1)
+            echo -e "\nDiretório atual: $(pwd)"
+            read -p "Pressione Enter para continuar..."
+            ;;
+        2)
+            echo -e "\nProcessos ativos (top 15 por uso de memória):"
+            ps aux --sort=-%mem | head -15
+            read -p "Pressione Enter para continuar..."
+            ;;
+        3)
+            echo -e "\nUso do disco:"
+            df -h
+            read -p "Pressione Enter para continuar..."
+            ;;
+        4)
+            echo -e "\nUsuários do sistema:"
+            cut -d: -f1 /etc/passwd
+            read -p "Pressione Enter para continuar..."
+            ;;
+        5)
+            echo "Finalizando o script. Até logo!"
+            break
+            ;;
+        *)
+            echo "Opção inválida. Tente novamente."
+            read -p "Pressione Enter para continuar..."
+            ;;
+    esac
+done
