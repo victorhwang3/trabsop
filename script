@@ -3,7 +3,7 @@
 # Função para exibir cabeçalho
 mostrar_cabecalho() {
     clear
-    data_atual=$(date +"%d de %B de %Y")
+    data_atual=$(LC_TIME=pt_BR.UTF-8 date +"%d de %B de %Y")
     hora_atual=$(date +"%H horas e %M minutos")
 
     # Definir semestre dinamicamente
